@@ -11,13 +11,13 @@ def generate_id(length: int = 8) -> str:
 
 
 class Device(Protocol):
-    def connect(self) -> None:
+    async def connect(self) -> None:
         ...
 
-    def disconnect(self) -> None:
+    async def disconnect(self) -> None:
         ...
 
-    def send_message(self, message_type: MessageType, data: str) -> None:
+    async def send_message(self, message_type: MessageType, data: str) -> None:
         ...
 
 
@@ -35,7 +35,7 @@ class IOTService:
         await self.devices[device_id].disconnect()
         del self.devices[device_id]
 
-    def get_device(self, device_id: str) -> Device:
+    async def get_device(self, device_id: str) -> Device:
         return self.devices[device_id]
 
     async def run_program(self, program: list[Message]) -> None:
